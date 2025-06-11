@@ -37,16 +37,16 @@ const FadeHoldText: React.FC = () => {
       <div ref={sectionRef} className="relative z-10">
         <motion.div
           style={{ opacity, scale, y: translateY }}
-          className="sticky top-0 py-32 px-4 flex flex-col items-center justify-center bg-white bg-opacity-90 backdrop-blur-sm"
+          className="sticky top-0 py-32 px-4 flex flex-col items-center justify-center bg-white dark:bg-black bg-opacity-90 backdrop-blur-sm"
         >
           <div className="text-center">
             <Title
               level={2}
-              className="text-5xl md:text-7xl font-medium text-primary leading-tight"
+              className="text-5xl md:text-7xl font-medium text-primary dark:text-primary-foreground leading-tight"
             >
               Lorem ipsum dolor sit amet elit.
             </Title>
-            <p className="mt-6 text-xl md:text-2xl text-primary max-w-3xl font-light mx-auto">
+            <p className="mt-6 text-xl md:text-2xl text-primary dark:text-primary-foreground max-w-3xl font-light mx-auto">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
               quos. Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>

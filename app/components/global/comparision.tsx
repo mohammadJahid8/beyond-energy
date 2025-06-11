@@ -6,7 +6,7 @@ import ReactCompareImage from "react-compare-image";
 
 const Comparison = () => {
   return (
-    <Container className="grid grid-cols-1 md:grid-cols-5 text-primary w-full overflow-hidden my-24">
+    <Container className="grid grid-cols-1 md:grid-cols-5 text-primary dark:text-primary-foreground w-full overflow-hidden my-24">
       <div className="col-span-2 flex flex-col justify-center px-0 md:px-10 py-10">
         <Title level={2} className="mb-4 leading-tight">
           Lorem <br /> consect apng.

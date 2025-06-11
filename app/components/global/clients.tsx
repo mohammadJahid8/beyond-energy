@@ -29,7 +29,7 @@ const Clients: React.FC = () => {
   ];
 
   return (
-    <Container className="py-20 text-primary text-center">
+    <Container className="py-20 text-primary dark:text-primary-foreground text-center">
       <Title level={2} className="mb-3">
         Complete compatibility
       </Title>

@@ -4,7 +4,7 @@ import Title from "./title";
 
 const How2 = () => {
   return (
-    <Container className="grid grid-cols-1 md:grid-cols-5 text-primary w-full overflow-hidden my-24">
+    <Container className="grid grid-cols-1 md:grid-cols-5 text-primary dark:text-primary-foreground w-full overflow-hidden my-24">
       <div className="col-span-3 flex items-center justify-center w-full order-2 md:order-1">
         <video
           src="https://assets.lumion.com/f/180614/x/9e24075cf1/lumion-landscape-rendering-showcase.mp4"

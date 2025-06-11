@@ -5,7 +5,10 @@ import Title from "./title";
 export default function Gallery() {
   return (
     <Container className="w-full py-32">
-      <Title level={2} className="text-primary mb-4">
+      <Title
+        level={2}
+        className="text-primary dark:text-primary-foreground mb-4"
+      >
         Lorem ipsum dolor sit amet elit.
       </Title>
       <p className="text-base md:text-lg text-muted-foreground mb-10 max-w-2xl">
