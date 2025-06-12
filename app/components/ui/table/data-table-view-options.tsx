@@ -1,6 +1,5 @@
 "use client";
 
-import type { Table } from "@tanstack/react-table";
 import { Settings2 } from "lucide-react";
 
 import { Button } from "@/app/components/ui/button";
@@ -21,19 +20,13 @@ import { cn } from "@/app/lib/utils";
 import * as React from "react";
 import { CheckIcon, CaretSortIcon } from "@radix-ui/react-icons";
 
-interface DataTableViewOptionsProps<TData> {
-  table: Table<TData>;
-}
-
-export function DataTableViewOptions<TData>({
-  table,
-}: DataTableViewOptionsProps<TData>) {
+export function DataTableViewOptions({ table }: any) {
   const columns = React.useMemo(
     () =>
       table
         .getAllColumns()
         .filter(
-          (column) =>
+          (column: any) =>
             typeof column.accessorFn !== "undefined" && column.getCanHide()
         ),
     [table]
@@ -60,7 +53,7 @@ export function DataTableViewOptions<TData>({
           <CommandList>
             <CommandEmpty>No columns found.</CommandEmpty>
             <CommandGroup>
-              {columns.map((column) => (
+              {columns.map((column: any) => (
                 <CommandItem
                   key={column.id}
                   onSelect={() =>

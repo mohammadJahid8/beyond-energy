@@ -3,6 +3,7 @@
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
 import type { ComponentProps } from "react";
+import type { CustomComponents } from "react-day-picker";
 
 import { cn } from "@/app/lib/utils";
 import { buttonVariants } from "./button";
@@ -64,10 +65,12 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: LeftIcon,
-        IconRight: RightIcon,
-      }}
+      components={
+        {
+          IconLeft: LeftIcon,
+          IconRight: RightIcon,
+        } as Partial<CustomComponents>
+      }
       {...props}
     />
   );

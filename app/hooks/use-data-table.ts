@@ -177,7 +177,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 
     return filterableColumns.reduce<
       Record<string, Parser<string> | Parser<string[]>>
-    >((acc, column) => {
+    >((acc, column: any) => {
       if (column.meta?.options) {
         acc[column.id ?? ""] = parseAsArrayOf(
           parseAsString,

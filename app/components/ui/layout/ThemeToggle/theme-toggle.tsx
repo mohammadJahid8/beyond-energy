@@ -36,7 +36,7 @@ export function ModeToggle() {
     <Button
       variant="secondary"
       size="icon"
-      className="group/toggle size-8"
+      className="group/toggle size-8 dark:bg-white dark:text-black cursor-pointer"
       onClick={handleThemeToggle}
     >
       <IconBrightness />

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Column, Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import * as React from "react";
 
 import { cn } from "@/app/lib/utils";
@@ -67,13 +67,8 @@ export function DataTableToolbar<TData>({
     </div>
   );
 }
-interface DataTableToolbarFilterProps<TData> {
-  column: Column<TData>;
-}
 
-function DataTableToolbarFilter<TData>({
-  column,
-}: DataTableToolbarFilterProps<TData>) {
+function DataTableToolbarFilter({ column }: any) {
   {
     const columnMeta = column.columnDef.meta;
 

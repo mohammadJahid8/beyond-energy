@@ -12,14 +12,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import React from "react";
 
-export default async function OverViewLayout({
-  sales,
-}: {
-  sales: React.ReactNode;
-  pie_stats: React.ReactNode;
-  bar_stats: React.ReactNode;
-  area_stats: React.ReactNode;
-}) {
+export default async function OverViewLayout({ sales }: any) {
   const user = await currentUser();
   const { sessionClaims } = await auth();
   console.log("🚀 ~ Dashboard ~ user:", user, sessionClaims?.metadata);

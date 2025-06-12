@@ -5,6 +5,8 @@ import { Button } from "../ui/button";
 import { Menu, ChevronRight, Globe, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ModeToggle } from "../ui/layout/ThemeToggle/theme-toggle";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { name: "solutions", href: "#" },
@@ -15,8 +17,23 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="w-full bg-primary text-secondary px-5 md:px-16 py-3 flex items-center justify-between border-b border-secondary">
+    <nav
+      className={`w-full bg-primary text-secondary px-5 md:px-16 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-200 ${
+        isScrolled ? "" : "border-b border-secondary"
+      }`}
+    >
       <div className="flex items-center gap-2">
         <Image
           src="/beyond-logo.png"
@@ -36,6 +53,7 @@ export default function Navbar() {
             {link.name.charAt(0).toUpperCase() + link.name.slice(1)}
           </Link>
         ))}
+        <ModeToggle />
       </div>
       {/* Mobile nav */}
       <div className="md:hidden">

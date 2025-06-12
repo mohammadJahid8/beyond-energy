@@ -1,6 +1,5 @@
 "use client";
 
-import type { Column } from "@tanstack/react-table";
 import * as React from "react";
 
 import { Button } from "@/app/components/ui/button";
@@ -32,15 +31,7 @@ function getIsValidRange(value: unknown): value is RangeValue {
   );
 }
 
-interface DataTableSliderFilterProps<TData> {
-  column: Column<TData, unknown>;
-  title?: string;
-}
-
-export function DataTableSliderFilter<TData>({
-  column,
-  title,
-}: DataTableSliderFilterProps<TData>) {
+export function DataTableSliderFilter({ column, title }: any) {
   const id = React.useId();
 
   const columnFilterValue = getIsValidRange(column.getFilterValue())

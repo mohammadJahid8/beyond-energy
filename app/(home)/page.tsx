@@ -13,7 +13,7 @@ import How2 from "../components/global/how-2";
 import Footer from "../components/global/footer";
 export default function Home() {
   return (
-    <>
+    <div className="overflow-x-clip">
       <Banner />
       <FadeOnScrollSection />
       <Hero />
@@ -27,6 +27,6 @@ export default function Home() {
       <Faqs />
       <Contact />
       <Footer />
-    </>
+    </div>
   );
 }

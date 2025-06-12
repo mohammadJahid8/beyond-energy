@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Accordion,
   AccordionItem,
@@ -7,6 +11,8 @@ import {
 } from "@/app/components/ui/accordion";
 import Container from "./container";
 import Title from "./title";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
@@ -41,8 +47,32 @@ const faqs = [
 ];
 
 const Faqs = () => {
+  const faqRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".faq-item", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: faqRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, faqRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <Container className="w-full bg-primary py-16 flex items-center justify-center">
+    <Container
+      ref={faqRef}
+      className="w-full bg-primary py-16 flex items-center justify-center"
+    >
       <div className="w-full max-w-3xl mx-auto">
         <Title level={2} className="text-secondary mb-20">
           All about beyond energy
@@ -53,7 +83,7 @@ const Faqs = () => {
           className="bg-primary text-secondary rounded-lg divide-y divide-secondary"
         >
           {faqs.map((faq, idx) => (
-            <AccordionItem key={idx} value={String(idx)}>
+            <AccordionItem key={idx} value={String(idx)} className="faq-item">
               <AccordionTrigger className="text-xl md:text-2xl font-semibold">
                 {faq.question}
               </AccordionTrigger>
