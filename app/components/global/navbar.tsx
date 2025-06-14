@@ -1,8 +1,8 @@
 "use client";
 
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from "../ui/sheet";
+import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { Menu, ChevronRight, Globe, X } from "lucide-react";
+import { Menu, ChevronRight, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ModeToggle } from "../ui/layout/ThemeToggle/theme-toggle";
@@ -30,8 +30,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`w-full bg-primary text-secondary px-5 md:px-16 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-200 ${
-        isScrolled ? "" : "border-b border-secondary"
+      className={`w-full bg-transparent text-white px-5 md:px-16 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-200 ${
+        isScrolled ? "" : ""
       }`}
     >
       <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ export default function Navbar() {
           <Link
             key={link.name}
             href={link.href}
-            className="hover:underline font-light"
+            className="hover:underline text-lg"
           >
             {link.name.charAt(0).toUpperCase() + link.name.slice(1)}
           </Link>
@@ -73,11 +73,6 @@ export default function Navbar() {
                   width={100}
                   height={100}
                 />
-                <SheetClose asChild>
-                  <Button variant="ghost" size="icon" aria-label="Close menu">
-                    <X className="size-6" />
-                  </Button>
-                </SheetClose>
               </div>
               {/* Nav links */}
               <div className="flex-1 flex flex-col gap-1 px-2 py-4">
@@ -104,14 +99,9 @@ export default function Navbar() {
                   <ChevronRight className="size-5" />
                 </button>
               </div>
-              {/* My account at the bottom */}
-              <div className="px-4 py-4 border-t border-secondary/30">
-                <Button
-                  variant="ghost"
-                  className="w-full text-left text-secondary"
-                >
-                  My account
-                </Button>
+              {/* Theme toggle at the bottom */}
+              <div className="px-4 py-4 border-t border-secondary/30 flex justify-center">
+                <ModeToggle />
               </div>
             </div>
           </SheetContent>

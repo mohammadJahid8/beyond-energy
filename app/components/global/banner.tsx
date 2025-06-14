@@ -5,13 +5,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { Button } from "../ui/button";
-// import Title from "./title";
+import Navbar from "./navbar";
+import { MoveRight } from "lucide-react";
+import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export default function Banner() {
   const container = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleLine1 = useRef<HTMLHeadingElement>(null);
+  const titleLine2 = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -23,7 +26,7 @@ export default function Banner() {
         },
       });
 
-      // Circular reveal background
+      // Background reveal
       tl.fromTo(
         container.current,
         {
@@ -36,72 +39,75 @@ export default function Banner() {
         }
       );
 
-      // Text reveal using GSAP TextPlugin
+      // Title animation line-by-line
       tl.fromTo(
-        titleRef.current,
+        titleLine1.current,
         { text: "" },
         {
-          text: "Discover Design Proposals",
-          duration: 1.8,
+          text: "Discover Design",
+          duration: 1.2,
           ease: "power1.inOut",
         }
+      ).fromTo(
+        titleLine2.current,
+        { text: "" },
+        {
+          text: "Proposals",
+          duration: 1,
+          ease: "power1.inOut",
+        },
+        "<+0.4"
       );
-
-      // Rest of the content fade in
-      tl.from(".text-new", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-      })
-        .from(".text-description", { y: 30, opacity: 0, duration: 0.8 }, "<0.2")
-        .from(".text-button", { y: 20, opacity: 0, duration: 0.6 }, "<0.2")
-        .from(
-          ".video-container",
-          { scale: 0.95, opacity: 0, duration: 1, ease: "power2.out" },
-          "<0.2"
-        );
     }, container);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={container}
-      className="grid grid-cols-1 md:grid-cols-2 bg-primary w-full overflow-hidden"
-      style={{
-        clipPath: "circle(0% at 0% 0%)",
-      }}
-    >
-      <div className="flex flex-col justify-center text-secondary px-5 md:pl-16 md:pr-0 py-20 md:py-40">
-        <span className="text-xl font-semibold mb-2 text-new">New</span>
-
-        {/* Animated text target */}
-        <h1
-          ref={titleRef}
-          className="text-title text-4xl md:text-6xl font-bold leading-tight mb-4"
+    <section ref={container} className="relative w-full overflow-hidden">
+      {/* Background video */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          {/* Start with empty text */}
-        </h1>
-
-        <p className="text-lg md:text-2xl mb-6 max-w-lg font-light text-description">
-          Explore, refine, visualize—right inside your modeling tool. Now
-          available for SketchUp.
-        </p>
-        <Button className="bg-accent w-max text-button">Get Started</Button>
+          <source
+            src="https://cdn.prod.website-files.com/677c7ce427a647ef7b9614a9%2F68471cd39105ac1f6b8dffe9_Untitled%20design%20%281%29%20%281%29-transcode.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
       </div>
 
-      <div className="flex items-center justify-center video-container">
-        <video
-          src="https://assets.lumion.com/f/180614/x/e144dd01b2/mediterranean-villa-slow-pan.mp4"
-          controls={false}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="object-cover w-full h-full"
-          poster="https://placehold.co/400x400?text=Banner+Video"
-        />
+      {/* Foreground content */}
+      <div className="relative z-10">
+        <Navbar />
+        <div className="flex flex-col justify-center text-white px-5 md:pl-16 md:pr-0 py-20 md:py-40">
+          <span className="text-lg font-semibold mb-2 text-new">New</span>
+          <ContainerTextFlip
+            className="pb-10"
+            words={["Discover Design Proposals", "Available for SketchUp"]}
+          />
+          {/* <h1
+            ref={titleLine1}
+            className="text-title text-5xl md:text-8xl font-bold leading-tight mb-1"
+          ></h1>
+          <h1
+            ref={titleLine2}
+            className="text-title text-5xl md:text-8xl font-bold leading-tight mb-4"
+          ></h1> */}
+          <p className="text-lg md:text-3xl mb-6 max-w-lg font-light text-description">
+            Explore, refine, visualize—right inside your modeling tool. Now
+            available for SketchUp.
+          </p>
+          <Button className="bg-white dark:bg-accent dark:text-white text-lg !px-10 py-6 w-max inline-flex items-center gap-4">
+            Get Started
+            <MoveRight className="w-7 h-7" />
+          </Button>
+        </div>
       </div>
     </section>
   );
