@@ -25,13 +25,15 @@ import {
   IconTrash,
   IconBrandTwitter,
   IconUser,
+  IconUsers,
   IconUserCircle,
   IconUserEdit,
   IconUserX,
   IconX,
   IconLayoutKanban,
-  IconBrandGithub
-} from '@tabler/icons-react';
+  IconBrandGithub,
+  IconMessage,
+} from "@tabler/icons-react";
 
 export type Icon = React.ComponentType<IconProps>;
 
@@ -58,6 +60,8 @@ export const Icons = {
   add: IconPlus,
   warning: IconAlertTriangle,
   user: IconUser,
+  users: IconUsers,
+  message: IconMessage,
   arrowRight: IconArrowRight,
   help: IconHelpCircle,
   pizza: IconPizza,
@@ -66,5 +70,5 @@ export const Icons = {
   laptop: IconDeviceLaptop,
   github: IconBrandGithub,
   twitter: IconBrandTwitter,
-  check: IconCheck
+  check: IconCheck,
 };

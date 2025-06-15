@@ -9,12 +9,38 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted");
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = Object.fromEntries(formData);
+
+      const response = await axios.post("/api/contact", data);
+
+      if (response.status !== 200) {
+        throw new Error("Failed to send message");
+      }
+
+      setSuccess(true);
+      (e.target as HTMLFormElement).reset();
+    } catch (err) {
+      setError("Failed to send message. Please try again later.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -56,6 +82,18 @@ const Contact = () => {
                 </p>
               </div>
 
+              {error && (
+                <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md">
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="bg-green-500/15 text-green-500 text-sm p-3 rounded-md">
+                  Message sent successfully! We&apos;ll get back to you soon.
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="firstName">First Name</Label>
@@ -64,6 +102,8 @@ const Contact = () => {
                     placeholder="John"
                     required
                     className="w-full"
+                    name="firstName"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="space-y-2">
@@ -73,6 +113,8 @@ const Contact = () => {
                     placeholder="Doe"
                     required
                     className="w-full"
+                    name="lastName"
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -85,6 +127,8 @@ const Contact = () => {
                   placeholder="john.doe@example.com"
                   required
                   className="w-full"
+                  name="email"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -95,6 +139,8 @@ const Contact = () => {
                   placeholder="How can we help you?"
                   required
                   className="w-full"
+                  name="subject"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -105,14 +151,17 @@ const Contact = () => {
                   placeholder="Tell us more about your inquiry..."
                   required
                   className="w-full min-h-[120px] resize-none"
+                  name="message"
+                  disabled={isLoading}
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-secondary font-semibold py-3 h-10 dark:bg-primary-foreground dark:text-primary"
+                className="w-full bg-primary hover:bg-primary/90 text-secondary font-semibold py-3 h-10 dark:bg-primary-foreground dark:text-primary cursor-pointer"
+                disabled={isLoading}
               >
-                Send Message
+                {isLoading ? "Sending..." : "Send Message"}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">

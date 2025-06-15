@@ -32,7 +32,7 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies();
   const activeThemeValue = cookieStore.get("active_theme")?.value;
-  console.log("🚀 ~ activeThemeValue:", activeThemeValue);
+  // console.log("🚀 ~ activeThemeValue:", activeThemeValue);
   const isScaled = activeThemeValue?.endsWith("-scaled");
 
   return (

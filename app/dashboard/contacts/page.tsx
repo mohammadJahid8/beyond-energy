@@ -1,23 +1,20 @@
-import { buttonVariants } from "@/app/components/ui/button";
 import { Heading } from "@/app/components/ui/heading";
 import PageContainer from "@/app/components/ui/layout/page-container";
 import { Separator } from "@/app/components/ui/separator";
 import { DataTableSkeleton } from "@/app/components/ui/table/data-table-skeleton";
-import UserListingPage from "@/app/features/users/components/user-listing";
+import ContactListingPage from "@/app/features/contacts/components/contact-listing";
 import { searchParamsCache } from "@/app/lib/searchparams";
-import { cn } from "@/app/lib/utils";
-import { IconPlus } from "@tabler/icons-react";
-import Link from "next/link";
 import { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Dashboard: Users",
+  title: "Dashboard: Contacts",
+  description: "Manage contact form submissions",
 };
 
-type pageProps = {
+interface pageProps {
   searchParams: Promise<SearchParams>;
-};
+}
 
 export default async function Page(props: pageProps) {
   const searchParams = await props.searchParams;
@@ -31,23 +28,20 @@ export default async function Page(props: pageProps) {
   return (
     <PageContainer scrollable={false}>
       <div className="flex flex-1 flex-col space-y-4">
-        <div className="flex items-start justify-between">
-          <Heading title="Users" description="Manage users" />
-          <Link
-            href="/dashboard/users/new"
-            className={cn(buttonVariants(), "text-xs md:text-sm")}
-          >
-            <IconPlus className="mr-2 h-4 w-4" /> Add New
-          </Link>
-        </div>
+        <Heading
+          title="Contacts"
+          description="Manage contact form submissions"
+        />
+
         <Separator />
+
         <Suspense
           // key={key}
           fallback={
-            <DataTableSkeleton columnCount={5} rowCount={8} filterCount={2} />
+            <DataTableSkeleton columnCount={6} rowCount={8} filterCount={4} />
           }
         >
-          <UserListingPage />
+          <ContactListingPage />
         </Suspense>
       </div>
     </PageContainer>
