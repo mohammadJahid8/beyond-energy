@@ -55,7 +55,7 @@ export const company = {
   plan: "Enterprise",
 };
 
-export default function AppSidebar() {
+export default function AppSidebar({ role }: { role: string }) {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
   const { user } = useUser();
@@ -78,6 +78,7 @@ export default function AppSidebar() {
               const Icon = item.icon
                 ? Icons[item.icon as keyof typeof Icons]
                 : Icons.logo;
+              if (item.role && !item.role.includes(role)) return null;
               return item?.items && item?.items?.length > 0 ? (
                 <Collapsible
                   key={item.title}

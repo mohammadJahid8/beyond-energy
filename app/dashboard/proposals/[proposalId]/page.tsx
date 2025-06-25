@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ProductViewPage from "@/app/features/products/components/product-view-page";
+import ProposalViewPage from "@/app/features/proposals/components/proposal-view-page";
 import PageContainer from "@/app/components/ui/layout/page-container";
 import FormCardSkeleton from "@/app/components/global/form-card-skeleton";
 
@@ -16,7 +16,7 @@ export default async function Page(props: PageProps) {
     <PageContainer scrollable>
       <div className="flex-1 space-y-4">
         <Suspense fallback={<FormCardSkeleton />}>
-          <ProductViewPage proposalId={params.proposalId} />
+          <ProposalViewPage proposalId={params.proposalId} />
         </Suspense>
       </div>
     </PageContainer>

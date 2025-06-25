@@ -3,7 +3,7 @@ import { Heading } from "@/app/components/ui/heading";
 import PageContainer from "@/app/components/ui/layout/page-container";
 import { Separator } from "@/app/components/ui/separator";
 import { DataTableSkeleton } from "@/app/components/ui/table/data-table-skeleton";
-import ProductListingPage from "@/app/features/products/components/product-listing";
+import ProposalListingPage from "@/app/features/proposals/components/proposal-listing";
 import { searchParamsCache } from "@/app/lib/searchparams";
 import { cn } from "@/app/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
@@ -12,7 +12,7 @@ import { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Dashboard: Products",
+  title: "Dashboard: Proposals",
 };
 
 type pageProps = {
@@ -46,7 +46,7 @@ export default async function Page(props: pageProps) {
             <DataTableSkeleton columnCount={5} rowCount={8} filterCount={2} />
           }
         >
-          <ProductListingPage />
+          <ProposalListingPage />
         </Suspense>
       </div>
     </PageContainer>

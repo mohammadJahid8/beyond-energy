@@ -4,9 +4,11 @@ import PageContainer from "@/app/components/ui/layout/page-container";
 import { Separator } from "@/app/components/ui/separator";
 import { DataTableSkeleton } from "@/app/components/ui/table/data-table-skeleton";
 import UserListingPage from "@/app/features/users/components/user-listing";
+import { checkRole } from "@/app/lib/check-role";
 import { searchParamsCache } from "@/app/lib/searchparams";
 import { cn } from "@/app/lib/utils";
 import { IconPlus } from "@tabler/icons-react";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
@@ -20,6 +22,11 @@ type pageProps = {
 };
 
 export default async function Page(props: pageProps) {
+  const isSuperAdmin = await checkRole("superAdmin");
+  if (!isSuperAdmin) {
+    redirect("/");
+  }
+
   const searchParams = await props.searchParams;
 
   // Allow nested RSCs to access the search params (in a type-safe way)

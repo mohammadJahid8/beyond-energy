@@ -155,3 +155,118 @@ export const fakeProducts = {
 
 // Initialize sample products
 fakeProducts.initialize();
+
+export type Proposal = {
+  photo_url: string;
+  name: string;
+  description: string;
+  created_at: string;
+  price: number;
+  id: number;
+  category: string;
+  updated_at: string;
+};
+
+export const fakeProposals = {
+  records: [] as Proposal[],
+  initialize() {
+    const sampleProposals: Proposal[] = [];
+    function generateRandomProposalData(id: number): Proposal {
+      const categories = [
+        "Electronics",
+        "Furniture",
+        "Clothing",
+        "Toys",
+        "Groceries",
+        "Books",
+        "Jewelry",
+        "Beauty Proposals",
+      ];
+      return {
+        id,
+        name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        created_at: faker.date
+          .between({ from: "2022-01-01", to: "2023-12-31" })
+          .toISOString(),
+        price: parseFloat(faker.commerce.price({ min: 5, max: 500, dec: 2 })),
+        photo_url: `https://api.slingacademy.com/public/sample-products/${id}.png`,
+        category: faker.helpers.arrayElement(categories),
+        updated_at: faker.date.recent().toISOString(),
+      };
+    }
+    for (let i = 1; i <= 20; i++) {
+      sampleProposals.push(generateRandomProposalData(i));
+    }
+    this.records = sampleProposals;
+  },
+  async getAll({
+    categories = [],
+    search,
+  }: {
+    categories?: string[];
+    search?: string;
+  }) {
+    let proposals = [...this.records];
+    if (categories.length > 0) {
+      proposals = proposals.filter((proposal) =>
+        categories.includes(proposal.category)
+      );
+    }
+    if (search) {
+      proposals = matchSorter(proposals, search, {
+        keys: ["name", "description", "category"],
+      });
+    }
+    return proposals;
+  },
+  async getProposals({
+    page = 1,
+    limit = 10,
+    categories,
+    search,
+  }: {
+    page?: number;
+    limit?: number;
+    categories?: string;
+    search?: string;
+  }) {
+    await delay(1000);
+    const categoriesArray = categories ? categories.split(".") : [];
+    const allProposals = await this.getAll({
+      categories: categoriesArray,
+      search,
+    });
+    const totalProposals = allProposals.length;
+    const offset = (page - 1) * limit;
+    const paginatedProposals = allProposals.slice(offset, offset + limit);
+    const currentTime = new Date().toISOString();
+    return {
+      success: true,
+      time: currentTime,
+      message: "Sample data for testing and learning purposes",
+      total_proposals: totalProposals,
+      offset,
+      limit,
+      proposals: paginatedProposals,
+    };
+  },
+  async getProposalById(id: number) {
+    await delay(1000);
+    const proposal = this.records.find((proposal) => proposal.id === id);
+    if (!proposal) {
+      return {
+        success: false,
+        message: `Proposal with ID ${id} not found`,
+      };
+    }
+    const currentTime = new Date().toISOString();
+    return {
+      success: true,
+      time: currentTime,
+      message: `Proposal with ID ${id} found`,
+      proposal,
+    };
+  },
+};
+fakeProposals.initialize();
